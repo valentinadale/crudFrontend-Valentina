@@ -18,7 +18,7 @@
     <!-- Navbar con menú -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Mi Tienda</a>
+            <a class="navbar-brand fw-bold" href="#">Inventario</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
                 aria-controls="mainNav">
                 <span class="navbar-toggler-icon"></span>
@@ -51,10 +51,14 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th class="text-end">Acciones</th>
+                        <th>Descripción</th>
+                        <th>Fecha de Creación</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    <td colspan="5">Actualmente no hay registros</td>
+                </tbody>
             </table>
         </div>
     </div>
@@ -71,9 +75,15 @@
                     <input type="hidden" id="categoryId" />
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="categoryName" class="form-label">Nombre</label>
+                            <label for="categoryName" class="form-label">Nombre <span
+                                    style="color:red">*</span></label>
                             <input type="text" class="form-control" id="categoryName"
                                 placeholder="Nombre de la categoría" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoryDescription" class="form-label">Descripción <span
+                                    style="color:red">*</span></label>
+                            <textarea id="categoryDescription" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer border-0">
@@ -94,7 +104,7 @@
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
     <!-- Main JS -->
-    <script src="js/categories.js"></script>
+    <script type="module" src="js/controllers/categoryController.js"></script>
 </body>
 
 </html>
