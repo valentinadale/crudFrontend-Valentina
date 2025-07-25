@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnAdd = document.getElementById('btnAdd');
 
   // Inicializa
-  cargarCategorias();
+  //cargarCategorias();
   cargarProductos();
 
   // Al hacer clic en "Agregar"
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Leer y mostrar todos los productos
   async function cargarProductos() {
     try {
-      const res = await fetch(`${API_URL}/getData`);
+      const res = await fetch(`${API_URL}/getData`,{method: 'GET'});
       const items = await res.json();
       itemsTableBody.innerHTML = '';
       items.forEach((item) => {
