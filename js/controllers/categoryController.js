@@ -47,7 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadCategories() {
     try {
-      const cats = await getCategories();
+      const data = await getCategories();
+      const cats = data.content;
       tableBody.innerHTML = "";
 
       if (cats.length === 0) {

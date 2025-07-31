@@ -8,6 +8,9 @@ import {
 
 import { getCategories } from "../services/categoryService.js";
 
+let currentPage = 0;
+let currentSize = 10;
+
 document.addEventListener("DOMContentLoaded", () => {
   const tableBody = document.querySelector("#itemsTable tbody");
   const form = document.getElementById("productForm");
@@ -15,6 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalLabel = document.getElementById("itemModalLabel");
   const btnAdd = document.getElementById("btnAdd");
   const select = document.getElementById("productCategory");
+
+  const sizeSelector = document.getElementById("pageSize");
+  sizeSelector.addEventListener("change", () => {
+    currentSize = parseInt(sizeSelector.value);
+    currentPage = 0; // Reiniciar a la primera página
+    cargarProductos();
+  });
 
   btnAdd.addEventListener("click", () => {
     limpiarFormulario();
@@ -33,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: form.productStock.value.trim(),
       fechaIngreso: form.productDate.value,
       categoriaId: form.productCategory.value,
-      usuarioId: 2
+      usuarioId: 2,
     };
 
     alert(JSON.stringify(payload) + " ,id:" + id);
@@ -54,8 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function cargarProductos() {
     try {
-      const items = await getProducts();
+      let data = await getProducts(currentPage, currentSize); //Se obtienen los datos tal cual vienen de la API, con paginación
+      let items = data.content; //Se usa la propiedad "content" para obtener los datos paginados
       tableBody.innerHTML = "";
+
       items.forEach((item) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
@@ -79,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
             eliminarProducto(item.id);
           }
         });
+        renderPagination(data.number, data.totalPages);
         tableBody.appendChild(tr);
       });
     } catch (err) {
@@ -123,6 +136,50 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       console.error("Error eliminando:", err);
     }
+  }
+
+  function renderPagination(current, totalPages) {
+    const pagination = document.getElementById("pagination");
+    pagination.innerHTML = "";
+
+    // Botón Anterior
+    const prev = document.createElement("li");
+    prev.className = `page-item ${current === 0 ? "disabled" : ""}`;
+    prev.innerHTML = `<a class="page-link" href="#">Anterior</a>`;
+    prev.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (current > 0) {
+        currentPage = current - 1;
+        cargarProductos();
+      }
+    });
+    pagination.appendChild(prev);
+
+    // Números de página
+    for (let i = 0; i < totalPages; i++) {
+      const li = document.createElement("li");
+      li.className = `page-item ${i === current ? "active" : ""}`;
+      li.innerHTML = `<a class="page-link" href="#">${i + 1}</a>`;
+      li.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentPage = i;
+        cargarProductos();
+      });
+      pagination.appendChild(li);
+    }
+
+    // Botón Siguiente
+    const next = document.createElement("li");
+    next.className = `page-item ${current >= totalPages - 1 ? "disabled" : ""}`;
+    next.innerHTML = `<a class="page-link" href="#">Siguiente</a>`;
+    next.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (current < totalPages - 1) {
+        currentPage = current + 1;
+        cargarProductos();
+      }
+    });
+    pagination.appendChild(next);
   }
 
   // Cargar datos al inicio

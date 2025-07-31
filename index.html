@@ -48,6 +48,20 @@
             </button>
         </div>
 
+        <!--Empieza selector de registros por página-->
+        <div class="d-flex justify-content-start align-items-center mb-3">
+            <label for="pageSize" class="form-label mb-0">Mostrar:</label>
+            <select id="pageSize" class="form-select w-auto ms-2">
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        <!--Finaliza selector de registros por página-->
+
+        <!--Empieza tabla de registros-->
         <div class="table-responsive">
             <table class="table table-hover align-middle" id="itemsTable">
                 <thead class="table-dark">
@@ -68,6 +82,14 @@
                 </tbody>
             </table>
         </div>
+        <!--Finaliza tabla de registros-->
+
+        <nav>
+            <ul class="pagination justify-content-center my-4" id="pagination">
+                <!-- Se llenará dinámicamente -->
+            </ul>
+        </nav>
+
     </div>
 
     <!-- Modal Crear/Editar -->
@@ -100,11 +122,13 @@
                             <input type="number" step="0.01" class="form-control" id="productPrice" required />
                         </div>
                         <div class="mb-3">
-                            <label for="productDate" class="form-label">Fecha de Ingreso <span style="color:red">*</span></label>
+                            <label for="productDate" class="form-label">Fecha de Ingreso <span
+                                    style="color:red">*</span></label>
                             <input type="date" id="productDate" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label for="productCategory" class="form-label">Categoría <span style="color:red">*</span></label>
+                            <label for="productCategory" class="form-label">Categoría <span
+                                    style="color:red">*</span></label>
                             <select class="form-select" id="productCategory" required>
                                 <option value="" disabled selected hidden>Seleccione...</option>
                             </select>
