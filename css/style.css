@@ -1,4 +1,4 @@
-/* Fondo suave y espaciados */
+/* Fondo suave */
 body {
     background: #f2f5f9;
 }
@@ -16,7 +16,7 @@ body {
     border-radius: 2rem;
 }
 
-/* Modal con esquinas suaves */
+/* Modal con esquinas redondeadas */
 .modal-content {
     border-radius: 1rem;
 }
