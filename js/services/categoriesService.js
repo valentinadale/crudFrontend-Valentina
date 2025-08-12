@@ -1,29 +1,28 @@
 const API_URL = "http://localhost:8080/api/category"
 
-//Funcion para acceder al endpoint GET
 export async function getCategories(){
-    const res = await fetch(`${API_URL}/getDataCategories`); //nombre del endpoint 
+    const res = await fetch(`${API_URL}/getDataCategories`);
     return res.json();
 }
 
-export async function createCategories(data) { //data son los datos que se pide la funcion para ingresarlos en la base 
+export async function createCategory(data) { //"data" son los datos que se guardan
     await fetch(`${API_URL}/newCategory`, {
-        metoth: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
     });
 }
 
-export async function updateCategory(id, data){
+export async function updateCategory(id, data) {
     await fetch(`${API_URL}/updateCategory/${id}`, {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
     });
 }
 
-export async function deleteCategory(id) {
+export async function deleteCategory (id) {
     await fetch(`${API_URL}/deleteCategory/${id}`, {
-        method: 'DELETE'
+        method: "DELETE"
     });
 }
